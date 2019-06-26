@@ -3,26 +3,28 @@
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 from conans import ConanFile, tools
+from conans.model.version import Version
 import os
 
 
 class IntelMediaSDKConan(ConanFile):
     name = "intel_media_sdk"
-    version = "2018R2"
+    version = "2018R2_1"
     url = "https://github.com/bincrafters/conan-intel_media_sdk"
     description = "Intel® Media SDK provides an API to access hardware-accelerated video decode, encode and " \
                   "filtering on Intel® platforms with integrated graphics."
     license = "MIT"
     exports = ["LICENSE.md"]
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"], "compiler": ["Visual Studio"]}
+    _exe_name = 'MediaSDK%s.exe' % version
 
     def source(self):
-        source_url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/vcp/13618/MSDK2018R2.exe"
-        tools.download(source_url, 'MSDK2018R2.exe')
+        source_url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/vcp/15303/%s" % self._exe_name
+        tools.download(source_url, self._exe_name)
 
     def build(self):
         for action in ['remove', 'install']:
-            self.run('MSDK2018R2.exe '
+            self.run('%s '
                      '%s '
                      '--silent '
                      '--installdir=%s '
@@ -30,7 +32,7 @@ class IntelMediaSDKConan(ConanFile):
                      '--eula=accept '
                      '--output=out.txt '
                      '--send-data=no '
-                     '--update=always' % (action, os.getcwd()))
+                     '--update=always' % (self._exe_name, action, os.getcwd()))
 
     def package(self):
         install_dir = os.path.join('Intel(R) Media SDK 2018 R2', 'Software Development Kit')
@@ -66,3 +68,8 @@ class IntelMediaSDKConan(ConanFile):
             # libmfx.lib unfortunately has /DEFAULTLIB:LIBCMT, there is nothing better to be done
             self.cpp_info.exelinkflags.append("-NODEFAULTLIB:LIBCMT")
             self.cpp_info.sharedlinkflags = self.cpp_info.exelinkflags
+
+    def package_id(self):
+        v = Version(str(self.settings.compiler.version))
+        if self.settings.compiler == "Visual Studio" and (v >= "14"):
+            self.info.settings.compiler.version = "VS version >= VS2015"
