@@ -1,5 +1,5 @@
 [![Download](https://api.bintray.com/packages/bincrafters/public-conan/intel_media_sdk%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/intel_media_sdk%3Abincrafters/_latestVersion)
-[![Build Status](https://travis-ci.org/bincrafters/conan-intel_media_sdk.svg?branch=testing%2F2017R1)](https://travis-ci.org/bincrafters/conan-intel_media_sdk)
+[![Build Status](https://travis-ci.com/bincrafters/conan-intel_media_sdk.svg?branch=testing%2F2017R1)](https://travis-ci.com/bincrafters/conan-intel_media_sdk)
 [![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-intel_media_sdk?branch=testing%2F2017R1&svg=true)](https://ci.appveyor.com/project/bincrafters/conan-intel_media_sdk)
 
 [Conan.io](https://conan.io) package recipe for *intel_media_sdk*.
