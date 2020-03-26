@@ -9,7 +9,6 @@ class IntelMediaSDKConan(ConanFile):
     description = "Intel® Media SDK provides an API to access hardware-accelerated video decode, encode and " \
                   "filtering on Intel® platforms with integrated graphics."
     license = "MIT"
-    exports = ["LICENSE.md"]
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"], "compiler": ["Visual Studio"]}
 
     def source(self):
